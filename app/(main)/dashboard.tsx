@@ -12,6 +12,7 @@ import { PieChart, BarChart, ProgressChart } from "react-native-chart-kit";
 import { useUser } from "../../context/UserContext";
 import * as SecureStore from "expo-secure-store";
 import { Ionicons } from "@expo/vector-icons";
+import Constants from "expo-constants";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -27,7 +28,7 @@ export default function DashboardScreen() {
       if (token) {
         try {
           const response = await fetch(
-            "http://172.16.141.104:8080/payments/stats",
+            Constants.expoConfig?.extra?.BASE_URL + "payments/stats",
             {
               headers: {
                 Authorization: `Bearer ${token}`,

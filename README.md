@@ -1,50 +1,123 @@
-# Welcome to your Expo app 👋
+# Payment Dashboard Mobile App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+React Native frontend for the Payment Dashboard built with Expo.
 
-## Get started
+## Prerequisites
 
-1. Install dependencies
+- Node.js (v16 or newer)
+- Expo CLI (`npm install -g expo-cli`)
+- npm
+- Physical device or emulator for testing
+
+## Setup
+
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/Abhiram86/payment_dashboard_client.git
+   cd payment_dashboard_client
+   ```
+
+2. **Install dependencies**
 
    ```bash
    npm install
    ```
 
-2. Start the app
+3. **Environment Configuration**
 
-   ```bash
-   npx expo start
+   Create a `.env` file in the root directory with the following variables:
+
+   ```env
+   BASE_URL=http://<your-local-ip>:8080
    ```
 
-In the output, you'll find options to open the app in a
+   - Replace `<your-local-ip>` with your computer's local IP address (find with `ipconfig` on Windows or `ifconfig` on Mac/Linux)
+   - The port should match your NestJS backend server port (default: 8080)
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+4. **Start the development server**
+   ```bash
+   expo start
+   ```
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Running the App
 
-## Get a fresh project
+### Android
 
-When you're ready, run:
+- Scan the QR code with the Expo Go app
+- Or run on emulator:
+  ```bash
+  expo start --android
+  ```
 
-```bash
-npm run reset-project
+### iOS
+
+- Scan the QR code with your camera (iOS only)
+- Or run on simulator:
+  ```bash
+  expo start --ios
+  ```
+
+## Development Notes
+
+### Connecting to Backend
+
+1. Ensure your NestJS server is running
+2. Verify both devices (server and mobile) are on the same network
+3. Update `.env` if your server IP changes
+
+### Troubleshooting
+
+- **Connection issues**: Check firewall settings to allow connections on port 8080
+- **Environment variables**: Restart Expo after changing `.env`
+- **Clear cache**: Run `expo start -c` if you encounter strange behavior
+
+## Project Structure
+
+```
+/src
+├── screens/        # App screens
+├── components/     # Reusable components
+├── services/       # API service layer
+├── utils/          # Utilities and helpers
+├── App.tsx         # Main app component
+└── app.json        # Expo configuration
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Dependencies
 
-## Learn more
+Main libraries used:
 
-To learn more about developing your project with Expo, look at the following resources:
+- `expo-secure-store` for JWT storage
+- `react-native-chart-kit` for data visualization
+- `axios` for API calls
+- `react-navigation` for navigation
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## Optional Setup
 
-## Join the community
+For Web development:
 
-Join our community of developers creating universal apps.
+```bash
+expo install react-native-web @expo/webpack-config
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+```
+
+Key features of this README:
+1. Clear environment setup instructions with `.env` example
+2. Specific guidance about local IP configuration
+3. Platform-specific running instructions
+4. Troubleshooting section for common issues
+5. Project structure overview
+6. Dependency information
+
+The README assumes:
+- Backend is running on port 8080 (adjust if different)
+- Standard Expo project structure
+- Basic React Native development knowledge
+
+You may want to customize:
+- The exact port number if your backend uses something other than 8080
+- Additional environment variables if your app needs them
+- Any project-specific setup instructions
+```

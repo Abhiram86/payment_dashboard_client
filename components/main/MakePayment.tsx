@@ -10,6 +10,7 @@ import {
 import { useState } from "react";
 import { useUser } from "../../context/UserContext";
 import * as SecureStore from "expo-secure-store";
+import Constants from "expo-constants";
 
 export default function MakePayment() {
   const { user } = useUser();
@@ -34,19 +35,22 @@ export default function MakePayment() {
 
     setIsLoading(true);
     try {
-      const response = await fetch("http://172.16.141.104:8080/payments", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          amount: parseFloat(amount),
-          receiver,
-          method,
-          userId: user?.id,
-        }),
-      });
+      const response = await fetch(
+        Constants.expoConfig?.extra?.BASE_URL + "payments",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            amount: parseFloat(amount),
+            receiver,
+            method,
+            userId: user?.id,
+          }),
+        }
+      );
 
       const data = await response.json();
 

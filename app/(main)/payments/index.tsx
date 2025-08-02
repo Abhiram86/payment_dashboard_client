@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import * as SecureStore from "expo-secure-store";
 import { Ionicons } from "@expo/vector-icons";
 import FilterModal from "../../../components/main/FilterModal";
+import Constants from "expo-constants";
 
 interface Payment {
   id: number;
@@ -37,13 +38,13 @@ export default function PaymentsScreen() {
       const token = await SecureStore.getItemAsync("token");
       if (token) {
         try {
-          let url = `http://172.16.141.104:8080/payments`;
+          let url = `${Constants.expoConfig?.extra?.BASE_URL}payments`;
           const params = new URLSearchParams();
           if (statusFilter) {
-            params.append('status', statusFilter);
+            params.append("status", statusFilter);
           }
           if (methodFilter) {
-            params.append('method', methodFilter);
+            params.append("method", methodFilter);
           }
           const queryString = params.toString();
           if (queryString) {
@@ -91,11 +92,27 @@ export default function PaymentsScreen() {
         <View style={styles.tableHeader}>
           <Text style={styles.tableHeaderText}>Amount</Text>
           <Text style={styles.tableHeaderText}>Receiver</Text>
-          <TouchableOpacity style={styles.tableHeaderTouchable} onPress={() => setIsStatusModalVisible(true)}>
-            <Text style={styles.tableHeaderText}>Status {statusFilter && <Ionicons name="filter" size={16} color="white" />}</Text>
+          <TouchableOpacity
+            style={styles.tableHeaderTouchable}
+            onPress={() => setIsStatusModalVisible(true)}
+          >
+            <Text style={styles.tableHeaderText}>
+              Status{" "}
+              {statusFilter && (
+                <Ionicons name="filter" size={16} color="white" />
+              )}
+            </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.tableHeaderTouchable} onPress={() => setIsMethodModalVisible(true)}>
-            <Text style={styles.tableHeaderText}>Method {methodFilter && <Ionicons name="filter" size={16} color="white" />}</Text>
+          <TouchableOpacity
+            style={styles.tableHeaderTouchable}
+            onPress={() => setIsMethodModalVisible(true)}
+          >
+            <Text style={styles.tableHeaderText}>
+              Method{" "}
+              {methodFilter && (
+                <Ionicons name="filter" size={16} color="white" />
+              )}
+            </Text>
           </TouchableOpacity>
         </View>
         {isLoading ? (
@@ -124,7 +141,11 @@ export default function PaymentsScreen() {
               </TouchableOpacity>
             )}
             keyExtractor={(item) => item.id.toString()}
-            ListEmptyComponent={<Text style={{ textAlign: "center", padding: 16 }}>No payments found.</Text>}
+            ListEmptyComponent={
+              <Text style={{ textAlign: "center", padding: 16 }}>
+                No payments found.
+              </Text>
+            }
             ListFooterComponentStyle={{ marginBottom: 200 }}
           />
         )}

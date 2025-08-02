@@ -10,6 +10,7 @@ import {
 import { Link, router } from "expo-router";
 import { useUser } from "../../context/UserContext";
 import { useState } from "react";
+import Constants from "expo-constants";
 
 export default function RegisterScreen() {
   const { login } = useUser();
@@ -27,13 +28,16 @@ export default function RegisterScreen() {
     setIsLoading(true);
     try {
       // Replace with your actual register endpoint
-      const response = await fetch("http://172.16.141.104:8080/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, email, password }),
-      });
+      const response = await fetch(
+        Constants.expoConfig?.extra?.BASE_URL + "auth/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username, email, password }),
+        }
+      );
 
       const data = await response.json();
 

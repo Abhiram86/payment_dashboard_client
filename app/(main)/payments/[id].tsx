@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, ActivityIndicator, Alert } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import * as SecureStore from "expo-secure-store";
+import Constants from "expo-constants";
 
 interface Payment {
   id: number;
@@ -26,7 +27,7 @@ export default function PaymentDetails() {
       const token = await SecureStore.getItemAsync("token");
       try {
         const response = await fetch(
-          `http://172.16.141.104:8080/payments/${id}`,
+          `${Constants.expoConfig?.extra?.BASE_URL}payments/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

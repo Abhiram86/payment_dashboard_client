@@ -1,0 +1,10 @@
+import { Stack } from "expo-router";
+
+export default function PaymentsLayout() {
+  return (
+    <Stack>
+      <Stack.Screen name="index" options={{ title: "Payments" }} />
+      <Stack.Screen name="[id]" options={{ title: "Payment Details" }} />
+    </Stack>
+  );
+}
